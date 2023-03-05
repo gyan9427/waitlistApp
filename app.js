@@ -2,6 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path')
+require('dotenv').config();
+
+const connectdb = require('./db/connectDB')
 
 const waitlistRoute = require('./routes/waitlist');
 
@@ -18,6 +21,14 @@ app.set('views',path.join(__dirname,'views'));
 
 app.use('/',waitlistRoute);
 
-app.listen(8000,()=>{
-    console.log('listening to PORT: 8000....')
-})
+const connect =async ()=>{
+    try{
+        await connectdb(process.env.mongo_uri)
+        app.listen(8000,()=>{
+            console.log('listening to PORT: 8000....')
+        }) 
+    }catch (error){
+        console.log(error)
+    }
+}
+connect();

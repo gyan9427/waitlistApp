@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const mongooseSeq = require('mongoose-sequence');
-const Inc = mongooseSeq.Inc;
-const AutoIncrement = Inc(mongoose);
+const AutoIncrement = mongooseSeq(mongoose);
 
 const wishlistSchema = new mongoose.Schema({
     email:{
         required:true,
-        type: string
+        type: String
     },
     position:{
         type: Number
