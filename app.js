@@ -3,6 +3,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path')
 
+const waitlistRoute = require('./routes/waitlist');
+
 const app = express();
 
 app.use(bodyParser.urlencoded({
@@ -14,9 +16,7 @@ app.use(express.static(path.join(__dirname,'public')));
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
-app.get('/',(req,res)=>{
-    res.render('index')
-})
+app.use('/',waitlistRoute);
 
 app.listen(8000,()=>{
     console.log('listening to PORT: 8000....')
